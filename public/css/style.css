@@ -1,60 +1,112 @@
+:root {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --primary: #10b981; /* Verde Esmeralda */
+    --primary-hover: #059669;
+    --accent: #3b82f6; /* Azul Tech */
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --gold: #f59e0b;
+    --danger: #ef4444;
+}
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-color: var(--bg-color);
+    color: var(--text-main);
     min-height: 100vh;
-    color: white;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
     padding: 20px;
 }
 
-header {
-    text-align: center;
-    margin-bottom: 30px;
+.app-wrapper {
+    width: 100%;
+    max-width: 480px; /* Largura mobile-first profissional */
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-.title {
-    font-family: 'Luckiest Guy', cursive;
-    font-size: 3.5em;
-    color: #FFD700;
-    text-shadow: 3px 3px 0 #FF6B00, 6px 6px 0 #000;
-    margin-bottom: 10px;
-    animation: pulse 2s infinite;
+/* Header */
+header {
+    text-align: center;
+    padding: 20px 0;
+}
+
+.logo-area {
+    font-size: 1.8rem;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 5px;
+    color: var(--text-main);
+}
+
+.fa-pix {
+    color: var(--primary);
+}
+
+.highlight {
+    color: var(--primary);
 }
 
 .subtitle {
-    font-size: 1.4em;
-    color: #FFD700;
-    font-weight: 700;
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
 }
 
-.game-container {
-    background: rgba(255, 255, 255, 0.1);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 30px;
-    margin-bottom: 30px;
-    border: 3px solid #FFD700;
+/* Game Card Main */
+.game-card {
+    background: var(--card-bg);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.secure-icon {
+    color: var(--primary);
+}
+
+/* Área da Raspadinha */
+.scratch-area-wrapper {
+    position: relative;
+    margin: 0 auto 25px;
+    padding: 4px;
+    background: linear-gradient(45deg, var(--accent), var(--primary));
+    border-radius: 16px;
+    width: 100%;
+    max-width: 350px;
 }
 
 .scratch-card {
     position: relative;
-    width: 400px;
-    height: 200px;
-    margin: 0 auto 30px;
-    background: linear-gradient(45deg, #FF6B00, #FFD700);
-    border-radius: 15px;
+    width: 100%;
+    height: 180px;
+    background: #fff;
+    border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    cursor: crosshair;
 }
 
 .scratch-overlay {
@@ -63,11 +115,11 @@ header {
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(45deg, #666, #999);
-    cursor: crosshair;
+    /* O canvas será desenhado aqui pelo JS */
     z-index: 2;
 }
 
+/* O texto por baixo da raspadinha */
 .prize-display {
     position: absolute;
     top: 0;
@@ -77,163 +129,195 @@ header {
     display: flex;
     align-items: center;
     justify-content: center;
+    background: radial-gradient(circle, #f1f5f9 0%, #cbd5e1 100%);
     z-index: 1;
 }
 
 .prize-text {
-    font-size: 2.5em;
-    font-weight: 900;
-    color: #FF6B00;
-    text-align: center;
-    text-shadow: 2px 2px 0 #FFD700;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--card-bg);
 }
 
+/* Botões */
 .controls {
-    text-align: center;
-    margin-bottom: 30px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
 }
 
-.btn-scratch, .btn-reset, .btn-close {
-    background: linear-gradient(45deg, #FF6B00, #FFD700);
-    color: white;
+button {
+    padding: 14px;
     border: none;
-    padding: 15px 30px;
-    font-size: 1.2em;
-    font-weight: 700;
-    border-radius: 50px;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 0.95rem;
     cursor: pointer;
-    margin: 0 10px;
-    transition: all 0.3s ease;
+    transition: transform 0.1s, opacity 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.btn-primary {
+    background: var(--primary);
+    color: #fff;
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
+}
+
+.btn-primary:hover {
+    background: var(--primary-hover);
+}
+
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.05);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-main);
+}
+
+/* Tabela de Prêmios */
+.prizes-panel {
+    background: var(--card-bg);
+    border-radius: 20px;
+    padding: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.prizes-panel h3 {
+    font-size: 0.9rem;
+    margin-bottom: 15px;
+    color: var(--text-muted);
     text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.btn-scratch:hover, .btn-reset:hover, .btn-close:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 10px 20px rgba(255, 107, 0, 0.3);
-}
-
-.btn-reset {
-    background: linear-gradient(45deg, #667eea, #764ba2);
-}
-
-.prizes-list h3 {
-    text-align: center;
-    margin-bottom: 20px;
-    color: #FFD700;
-    font-size: 1.5em;
 }
 
 .prizes-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 15px;
-    max-width: 600px;
-    margin: 0 auto;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
-.prize-item {
-    padding: 15px;
+.prize-pill {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 10px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-muted);
+}
+
+.prize-pill.win {
+    color: var(--text-main);
+    font-weight: 600;
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(16, 185, 129, 0.2);
+}
+
+.dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--text-muted);
+}
+
+.prize-pill.win .dot {
+    background: var(--primary);
+    box-shadow: 0 0 5px var(--primary);
+}
+
+/* Footer */
+footer {
     text-align: center;
-    border-radius: 10px;
-    font-weight: 700;
-    font-size: 1.1em;
-    transition: transform 0.3s ease;
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    margin-top: 20px;
+    opacity: 0.5;
 }
 
-.money-prize {
-    background: linear-gradient(45deg, #00C853, #64DD17);
-    color: white;
-}
-
-.try-again {
-    background: linear-gradient(45deg, #FF4081, #F50057);
-    color: white;
-}
-
-.prize-item:hover {
-    transform: scale(1.05);
-}
-
-.result-popup {
-    display: none;
+/* Modal Popup Profissional */
+.result-overlay {
+    display: none; /* controlado pelo JS */
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
-    z-index: 1000;
+    background: rgba(15, 23, 42, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 100;
     align-items: center;
     justify-content: center;
-}
-
-.popup-content {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    padding: 40px;
-    border-radius: 20px;
-    text-align: center;
-    border: 3px solid #FFD700;
-    animation: popIn 0.5s ease;
-}
-
-.popup-content h2 {
-    font-size: 2.5em;
-    margin-bottom: 20px;
-    color: #FFD700;
-}
-
-.popup-content p {
-    font-size: 1.5em;
-    margin-bottom: 30px;
-}
-
-#prizeAmount {
-    font-weight: 900;
-    color: #FFD700;
-    font-size: 1.8em;
-}
-
-footer {
-    text-align: center;
     padding: 20px;
-    background: rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+.result-modal {
+    background: var(--card-bg);
+    width: 100%;
+    max-width: 320px;
+    padding: 30px;
+    border-radius: 24px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    animation: modalUp 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-@keyframes popIn {
-    0% { transform: scale(0.5); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
+.modal-icon {
+    font-size: 3rem;
+    margin-bottom: 15px;
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
-    .title {
-        font-size: 2.5em;
-    }
-    
-    .scratch-card {
-        width: 100%;
-        max-width: 350px;
-        height: 180px;
-    }
-    
-    .prizes-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .controls {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-    
-    .btn-scratch, .btn-reset {
-        margin: 5px 0;
-    }
+.result-modal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 5px;
+    color: var(--text-main);
+}
+
+.modal-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+}
+
+.prize-amount-box {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--primary);
+    font-size: 1.8rem;
+    font-weight: 800;
+    padding: 15px;
+    border-radius: 16px;
+    margin-bottom: 25px;
+    border: 1px dashed rgba(16, 185, 129, 0.3);
+}
+
+.btn-modal {
+    width: 100%;
+    background: var(--text-main);
+    color: var(--bg-color);
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.btn-modal:hover {
+    background: #e2e8f0;
+}
+
+@keyframes modalUp {
+    from { transform: translateY(20px) scale(0.9); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
 }
