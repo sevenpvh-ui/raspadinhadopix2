@@ -3,54 +3,74 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><%= title %></title>
+    <title>Raspadinha Premium</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <div class="container">
+    <div class="app-wrapper">
         <header>
-            <h1 class="title">🎊 RASPADINHA DO PIX 🎊</h1>
-            <p class="subtitle">Raspe e ganhe prêmios em PIX!</p>
+            <div class="logo-area">
+                <i class="fa-brands fa-pix"></i>
+                <span>Raspadinha<strong class="highlight">PIX</strong></span>
+            </div>
+            <p class="subtitle">Sistema de Premiação Instantânea</p>
         </header>
 
-        <div class="game-container">
-            <div class="scratch-card" id="scratchCard">
-                <div class="scratch-overlay" id="scratchOverlay"></div>
-                <div class="prize-display" id="prizeDisplay">
-                    <div class="prize-text">RASPE AQUI!</div>
+        <main class="game-card">
+            <div class="status-bar">
+                <span class="status-text">Área de Raspagem Segura</span>
+                <div class="secure-icon"><i class="fa-solid fa-lock"></i></div>
+            </div>
+
+            <div class="scratch-area-wrapper">
+                <div class="scratch-card" id="scratchCard">
+                    <div class="scratch-overlay" id="scratchOverlay"></div>
+                    <div class="prize-display" id="prizeDisplay">
+                        <div class="prize-text">R$ ???</div>
+                    </div>
                 </div>
             </div>
 
             <div class="controls">
-                <button class="btn-scratch" id="scratchBtn">RASPAR AGORA</button>
-                <button class="btn-reset" id="resetBtn">NOVA RASPADINHA</button>
+                <button class="btn-primary" id="scratchBtn">
+                    <i class="fa-solid fa-coins"></i> Raspar Agora
+                </button>
+                <button class="btn-secondary" id="resetBtn">
+                    <i class="fa-solid fa-rotate-right"></i> Tentar Novamente
+                </button>
             </div>
+        </main>
 
-            <div class="prizes-list">
-                <h3>🎁 PRÊMIOS DISPONÍVEIS:</h3>
-                <div class="prizes-grid">
-                    <% premios.forEach(premio => { %>
-                        <div class="prize-item <%= premio.valor.includes('R$') ? 'money-prize' : 'try-again' %>">
-                            <%= premio.valor %>
-                        </div>
-                    <% }); %>
+        <div class="prizes-panel">
+            <h3>Tabela de Premiação</h3>
+            <div class="prizes-grid">
+                <% premios.forEach(premio => { %>
+                    <div class="prize-pill <%= premio.valor.includes('R$') ? 'win' : 'neutral' %>">
+                        <span class="dot"></span>
+                        <%= premio.valor %>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+
+        <div class="result-overlay" id="resultPopup">
+            <div class="result-modal">
+                <div class="modal-icon" id="modalIcon">🎉</div>
+                <h2 id="popupTitle">Resultado</h2>
+                <p class="modal-subtitle">O seu prémio foi:</p>
+                <div class="prize-amount-box">
+                    <span id="prizeAmount"></span>
                 </div>
+                <button class="btn-modal" id="closePopup">Confirmar</button>
             </div>
         </div>
 
-        <div class="result-popup" id="resultPopup">
-            <div class="popup-content">
-                <h2 id="popupTitle">PARABÉNS! 🎉</h2>
-                <p id="popupMessage">Você ganhou: <span id="prizeAmount"></span></p>
-                <button class="btn-close" id="closePopup">CONTINUAR</button>
-            </div>
-        </div>
+        <footer>
+            <p>&copy; 2024 SevenPVH Systems. Todos os direitos reservados.</p>
+        </footer>
     </div>
-
-    <footer>
-        <p>🎯 Raspadinha do PIX - Diversão garantida!</p>
-    </footer>
 
     <script src="/socket.io/socket.io.js"></script>
     <script src="/js/game.js"></script>
