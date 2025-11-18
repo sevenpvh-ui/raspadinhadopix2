@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Roboto:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 class="title">🎊 RASPADINHA DO PIX 🎊</h1>
+            <p class="subtitle">Raspe e ganhe prêmios em PIX!</p>
+        </header>
+
+        <div class="game-container">
+            <div class="scratch-card" id="scratchCard">
+                <div class="scratch-overlay" id="scratchOverlay"></div>
+                <div class="prize-display" id="prizeDisplay">
+                    <div class="prize-text">RASPE AQUI!</div>
+                </div>
+            </div>
+
+            <div class="controls">
+                <button class="btn-scratch" id="scratchBtn">RASPAR AGORA</button>
+                <button class="btn-reset" id="resetBtn">NOVA RASPADINHA</button>
+            </div>
+
+            <div class="prizes-list">
+                <h3>🎁 PRÊMIOS DISPONÍVEIS:</h3>
+                <div class="prizes-grid">
+                    <% premios.forEach(premio => { %>
+                        <div class="prize-item <%= premio.valor.includes('R$') ? 'money-prize' : 'try-again' %>">
+                            <%= premio.valor %>
+                        </div>
+                    <% }); %>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-popup" id="resultPopup">
+            <div class="popup-content">
+                <h2 id="popupTitle">PARABÉNS! 🎉</h2>
+                <p id="popupMessage">Você ganhou: <span id="prizeAmount"></span></p>
+                <button class="btn-close" id="closePopup">CONTINUAR</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>🎯 Raspadinha do PIX - Diversão garantida!</p>
+    </footer>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/game.js"></script>
+</body>
+</html>
